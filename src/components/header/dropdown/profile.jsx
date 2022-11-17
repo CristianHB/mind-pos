@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect} from "react";
 import {
   Dropdown,
   DropdownToggle,
@@ -25,9 +25,21 @@ export default function DropdownProfile() {
     setDropdownOpen((prevState) => !prevState);
   };
 
+
+  const [nameUser, setItems] = useState([]);
+
+  useEffect(() => {
+    const nameUser = JSON.parse(localStorage.getItem('user-data'));
+    if (nameUser) {
+     setItems(nameUser);
+     console.log(nameUser.username);
+    }
+  }, []);
+
   const logOut = () => {
     setAppState((state) => ({ ...state, authUser: false })); //cambiar estado de logueo
     localStorage.removeItem("token");
+    localStorage.removeItem("user-data");
     history.push("/login");
   };
 
@@ -46,7 +58,7 @@ export default function DropdownProfile() {
           <i className="fa fa-user"></i>
         </div>
         <span>
-          <span className="d-none d-md-inline">Adam Schwartz</span>
+          <span className="d-none d-md-inline">{nameUser.username}</span>
           <b className="caret"></b>
         </span>
       </DropdownToggle>

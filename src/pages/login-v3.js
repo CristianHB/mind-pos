@@ -1,17 +1,25 @@
 import React, { useEffect, useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AppSettings } from "./../config/app-settings";
 import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import Swal from 'sweetalert2'
+// ES6 Modules or TypeScript
+
 import {
   handleSetAppSidebarNone,
   handleSetAppHeaderNone,
   handleSetAppContentClass,
 } from "../utils/startApplication";
 
+import axios from 'axios'
+
 export default function LoginV3() {
   const { appState, setAppState } = useContext(AppSettings);
   const history = useHistory();
+  const { register, handleSubmit } = useForm();
   const token = localStorage.getItem("token");
+
 
   useEffect(() => {
     if (token) {
@@ -26,14 +34,58 @@ export default function LoginV3() {
     }
   }, []);
 
-  const handleSubmit = (event) => {
-    localStorage.setItem("token", "hola");
-    history.push("/dashboard");
-    handleSetAppSidebarNone(false, appState, setAppState);
-    handleSetAppHeaderNone(false, appState, setAppState);
-    handleSetAppContentClass("", appState, setAppState);
-    event.preventDefault();
+ 
+  const onSubmit = (event) => {
+    console.log( process.env.API_BACK_URL);
+    console.log(event);
+
+    const post = { username: event.username, password: event.password }
+    console.log(post);
+
+    axios.post(process.env.REACT_APP_API_BACK_URL+'/api/auth/signin',  { 
+      "username": event.username,
+      "password": event.password
+     })
+    .then(function (response) {
+      console.log(response);
+      console.log(response.data.accessToken);
+      localStorage.setItem("token", response.data.accessToken);
+      localStorage.setItem("user-data", JSON.stringify(response.data));
+      if (token) {
+        localStorage.setItem("user-data", JSON.stringify(response.data));
+        history.push("/dashboard");
+        handleSetAppSidebarNone(false, appState, setAppState);
+        handleSetAppHeaderNone(false, appState, setAppState);
+        handleSetAppContentClass("", appState, setAppState);
+      } else {
+        handleSetAppSidebarNone(true, appState, setAppState);
+        handleSetAppHeaderNone(true, appState, setAppState);
+        handleSetAppContentClass("p-0", appState, setAppState);
+      }
+    })
+    .catch(function (error) {
+     
+      switch (error.response.data.message) {
+        case "User Not found.":
+          Swal.fire({
+            title: 'Usuario no encontrado.',
+            confirmButtonColor: '#00acac',
+          },);
+          break;
+        case "Invalid Password!":
+          Swal.fire({
+            title: 'Contrasena invalida',
+            confirmButtonColor: '#00acac',
+          },);
+          break;  
+        default:
+          break;
+      }
+      console.log(error);
+    });
+
   };
+  
 
   return (
     <div className="login login-with-news-feed">
@@ -49,6 +101,7 @@ export default function LoginV3() {
             <b>Color</b> Admin App
           </h4>
           <p>
+            {process.env.REACT_APP_API_BACK_URL}
             Download the Color Admin app for iPhone®, iPad®, and Android™. Lorem
             ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
@@ -68,13 +121,15 @@ export default function LoginV3() {
           </div>
         </div>
         <div className="login-content">
-          <form onSubmit={handleSubmit} className="fs-13px">
+          <form onSubmit={handleSubmit(onSubmit)} className="fs-13px">
             <div className="form-floating mb-15px">
               <input
                 type="text"
                 className="form-control h-45px fs-13px"
                 placeholder="Email Address"
                 id="emailAddress"
+                name="username"
+                {...register("username")} 
               />
               <label
                 htmlFor="emailAddress"
@@ -89,6 +144,8 @@ export default function LoginV3() {
                 className="form-control h-45px fs-13px"
                 placeholder="Password"
                 id="password"
+                name="password"
+                {...register("password")}
               />
               <label
                 htmlFor="password"
@@ -133,3 +190,7 @@ export default function LoginV3() {
     </div>
   );
 }
+
+
+
+//background-color: var(--bs-btn-bg);
