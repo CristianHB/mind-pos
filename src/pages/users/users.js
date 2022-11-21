@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import ModalComponent from "../../components/modal/modal";
 import Table from "../table/Table";
+import FormUser from "../../components/form-user/form-user";
 
 export default function Users() {
   const columns = React.useMemo(
@@ -121,6 +122,20 @@ export default function Users() {
     setModalEditUser(true);
   };
 
+  const addUser = () => {
+    return <FormUser setDataUsers={setDataUsers} toggle={setModalAddUser} />;
+  };
+
+  const editUser = () => {
+    return (
+      <FormUser
+        userEdit={userEdit}
+        setDataUsers={setDataUsers}
+        toggle={setModalEditUser}
+      />
+    );
+  };
+
   return (
     <div>
       {/* <ol className="breadcrumb float-xl-end">
@@ -145,7 +160,7 @@ export default function Users() {
         isOpen={modalAddUser}
         size={"lg"}
         toggle={setModalAddUser}
-        setDataUsers={setDataUsers}
+        dataModal={addUser}
       />
       {/* <FormUser /> */}
 
@@ -153,8 +168,7 @@ export default function Users() {
         isOpen={modalEditUser}
         size={"lg"}
         toggle={setModalEditUser}
-        userEdit={userEdit}
-        setDataUsers={setDataUsers}
+        dataModal={editUser}
       />
       {/* <FormUser /> */}
     </div>

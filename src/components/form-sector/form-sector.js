@@ -1,14 +1,15 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
-  const data = ambientEdit?.originalRow;
-  const rowIndex = ambientEdit?.rowIndex;
+export default function FormSector({ sectorEdit, setDataSector, toggle }) {
+  const data = sectorEdit?.originalRow;
+  // console.log(data);
+  const rowIndex = sectorEdit?.rowIndex;
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (ambienInfo) => {
     if (data) {
-      setDataAmbient((prevState) =>
+      setDataSector((prevState) =>
         prevState.map((item, index) => {
           if (index === rowIndex) {
             return (prevState[index] = ambienInfo);
@@ -19,7 +20,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
       );
     } else {
       // console.log(ambienInfo);
-      setDataAmbient((prevState) => [...prevState, ambienInfo]);
+      setDataSector((prevState) => [...prevState, ambienInfo]);
     }
     toggle(false);
   };
@@ -35,6 +36,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
           </label>
           <div className="col-md-8">
             <input
+              defaultValue={data?.description}
               name="description"
               type="text"
               className="form-control form-control-lg"
@@ -52,6 +54,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
           </label>
           <div className="col-md-8">
             <select
+              defaultValue={data?.cellar}
               className="form-select"
               name="cellar"
               {...register("cellar")}
@@ -68,6 +71,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
           </label>
           <div className="col-md-8">
             <select
+              defaultValue={data?.resolution}
               className="form-select"
               name="resolution"
               {...register("resolution")}
@@ -81,6 +85,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
           </label>
           <div className="col-md-8">
             <select
+              defaultValue={data?.tip}
               className="form-select"
               name="tip"
               {...register("tip")}
@@ -90,16 +95,17 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
         </div>
         <div className="row mb-3">
           <label
-            htmlFor="ambientType"
+            htmlFor="status"
             className="form-label col-form-label col-md-3"
           >
-            Tipo ambiente
+            Tipo sector
           </label>
           <div className="col-md-8">
             <select
+              defaultValue={data?.status}
               className="form-select"
-              name="ambientType"
-              {...register("ambientType")}
+              name="status"
+              {...register("status")}
               placeholder="Ingresa tu tipo de ambiente"
             />
           </div>

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 
 export default function FormUser({ userEdit, setDataUsers, toggle }) {
   const data = userEdit?.originalRow;
+  // console.log(data);
   const rowIndex = userEdit?.rowIndex;
   const { register, handleSubmit } = useForm();
 
@@ -18,10 +19,10 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
         })
       );
     } else {
-      console.log(userInfo);
+      // console.log(userInfo);
       setDataUsers((prevState) => [...prevState, userInfo]);
     }
-    toggle((prevState) => !prevState);
+    toggle(false);
   };
   return (
     <>
@@ -79,7 +80,6 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
         </div>
         <div className="row mb-3">
           <label
-            defaultValue={data?.visits}
             htmlFor="visits"
             className="form-label col-form-label col-md-3"
           >
@@ -87,6 +87,7 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
           </label>
           <div className="col-md-8">
             <input
+              defaultValue={data?.visits}
               name="visits"
               type="text"
               className="input-form"
@@ -104,6 +105,7 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
           </label>
           <div className="col-md-8">
             <input
+              defaultValue={data?.status}
               name="status"
               type="text"
               className="input-form"
@@ -121,6 +123,7 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
           </label>
           <div className="col-md-8">
             <input
+              defaultValue={data?.progress}
               name="progress"
               type="text"
               className="input-form"

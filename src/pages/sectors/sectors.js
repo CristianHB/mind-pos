@@ -1,46 +1,37 @@
 import React, { useState, useCallback } from "react";
 import ModalComponent from "../../components/modal/modal";
 import Table from "../table/Table";
+import FormSector from "../../components/form-sector/form-sector";
 
 export default function Sectors() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Name",
-        columns: [
-          {
-            Header: "First Name",
-            accessor: "firstName",
-            sortable: true,
-          },
-          {
-            Header: "Last Name",
-            accessor: "lastName",
-            sortable: true,
-          },
-        ],
-      },
-      {
         Header: "Info",
         columns: [
           {
-            Header: "Age",
-            accessor: "age",
+            Header: "Descripcion",
+            accessor: "description",
             sortable: true,
           },
           {
-            Header: "Visits",
-            accessor: "visits",
+            Header: "Bodega",
+            accessor: "cellar",
             sortable: true,
           },
           {
-            Header: "Status",
+            Header: "Resolucion",
+            accessor: "resolution",
+            sortable: true,
+          },
+          {
+            Header: "Propina",
+            accessor: "tip",
+            sortable: true,
+          },
+          {
+            Header: "Estado",
             accessor: "status",
-            sortable: true,
-          },
-          {
-            Header: "Profile Progress",
-            accessor: "progress",
             sortable: true,
           },
           {
@@ -73,37 +64,37 @@ export default function Sectors() {
   const [sectorEdit, setSectorEdit] = useState();
   const [dataSectors, setDataSectors] = useState([
     {
-      age: 13,
-      firstName: "Cristian",
-      lastName: "Hernandez",
-      progress: 74,
+      description: 13,
+      cellar: "Cristian",
+      resolution: "Hernandez",
+      tip: 74,
       status: "single",
       subRows: undefined,
       visits: 27,
     },
     {
-      age: 15,
-      firstName: "Esteban",
-      lastName: "Barrero",
-      progress: 74,
+      description: 15,
+      cellar: "Esteban",
+      resolution: "Barrero",
+      tip: 74,
       status: "single",
       subRows: undefined,
       visits: 27,
     },
     {
-      age: 17,
-      firstName: "Nicolas",
-      lastName: "Martinez",
-      progress: 74,
+      description: 17,
+      cellar: "Nicolas",
+      resolution: "Martinez",
+      tip: 74,
       status: "single",
       subRows: undefined,
       visits: 27,
     },
     {
-      age: 19,
-      firstName: "Nena",
-      lastName: "Saenz",
-      progress: 74,
+      description: 19,
+      cellar: "Nena",
+      resolution: "Saenz",
+      tip: 74,
       status: "single",
       subRows: undefined,
       visits: 27,
@@ -122,6 +113,22 @@ export default function Sectors() {
     setModalEditSector(true);
   };
 
+  const addAmbient = () => {
+    return (
+      <FormSector setDataSector={setDataSectors} toggle={setModalAddSector} />
+    );
+  };
+
+  const editAmbient = () => {
+    return (
+      <FormSector
+        sectorEdit={sectorEdit}
+        setDataSector={setDataSectors}
+        toggle={setModalEditSector}
+      />
+    );
+  };
+
   return (
     <div>
       {/* <ol className="breadcrumb float-xl-end">
@@ -133,7 +140,7 @@ export default function Sectors() {
         </li>
         <li className="breadcrumb-item active">Data Tables</li>
       </ol> */}
-      <h1 className="page-header">Usuarios </h1>
+      <h1 className="page-header">Sectores </h1>
 
       <Table
         columns={columns}
@@ -146,7 +153,7 @@ export default function Sectors() {
         isOpen={modalAddSector}
         size={"lg"}
         toggle={setModalAddSector}
-        setData={setDataSectors}
+        dataModal={addAmbient}
       />
       {/* <FormUser /> */}
 
@@ -154,8 +161,7 @@ export default function Sectors() {
         isOpen={modalEditSector}
         size={"lg"}
         toggle={setModalEditSector}
-        edit={sectorEdit}
-        setData={setDataSectors}
+        dataModal={editAmbient}
       />
       {/* <FormUser /> */}
     </div>

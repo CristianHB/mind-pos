@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ModalComponent from "../../components/modal/modal";
 import Table from "../table/Table";
+import FormAmbient from "../../components/form-ambient/form-ambient";
 
 export default function Ambient() {
   const columns = React.useMemo(
@@ -74,6 +75,25 @@ export default function Ambient() {
     setModalEditAmbient(true);
   };
 
+  const addAmbient = () => {
+    return (
+      <FormAmbient
+        setDataAmbient={setDataAmbient}
+        toggle={setModalAddAmbient}
+      />
+    );
+  };
+
+  const editAmbient = () => {
+    return (
+      <FormAmbient
+        ambientEdit={ambientEdit}
+        setDataAmbient={setDataAmbient}
+        toggle={setModalEditAmbient}
+      />
+    );
+  };
+
   return (
     <div>
       {/* <ol className="breadcrumb float-xl-end">
@@ -99,7 +119,7 @@ export default function Ambient() {
         isOpen={modalAddAmbient}
         size={"lg"}
         toggle={setModalAddAmbient}
-        setDataUsers={setDataAmbient}
+        dataModal={addAmbient}
       />
       {/* <FormUser /> */}
 
@@ -107,8 +127,7 @@ export default function Ambient() {
         isOpen={modalEditAmbient}
         size={"lg"}
         toggle={setModalEditAmbient}
-        userEdit={ambientEdit}
-        setDataUsers={setDataAmbient}
+        dataModal={editAmbient}
       />
       {/* <FormUser /> */}
     </div>

@@ -30,7 +30,7 @@ export default function DropdownProfile() {
     const nameUser = JSON.parse(localStorage.getItem("user-data"));
     if (nameUser) {
       setItems(nameUser);
-      console.log(nameUser.username);
+      // console.log(nameUser.username);
     }
   }, []);
 
