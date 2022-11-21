@@ -23,7 +23,7 @@ export default function App() {
   const { appState, setAppState } = useContext(AppSettings);
 
   useEffect(() => {
-    console.log("appstater", appState, "setappstater", setAppState);
+    // console.log("appstater", appState, "setappstater", setAppState);
     handleSetColor(appState, setAppState);
     handleSetFont(appState, setAppState);
     handleSetAppTheme(appState.appTheme);

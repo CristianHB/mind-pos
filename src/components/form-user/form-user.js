@@ -27,58 +27,107 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row mb-3">
-          <label htmlFor="firstName"  className="form-label col-form-label col-md-3">Nombre</label>
-            <div className="col-md-8">
-              <input name="firstName"
+          <label
+            htmlFor="firstName"
+            className="form-label col-form-label col-md-3"
+          >
+            Nombre
+          </label>
+          <div className="col-md-8">
+            <input
+              defaultValue={data?.firstName}
+              name="firstName"
               type="text"
               className="input-form"
-              {...register("firstName")} placeholder="Ingresa tu nombre" />
-            </div>
+              {...register("firstName")}
+              placeholder="Ingresa tu nombre"
+            />
+          </div>
         </div>
         <div className="row mb-3">
-          <label htmlFor="firstName"  className="form-label col-form-label col-md-3">Apellido</label>
-            <div className="col-md-8">
-              <input name="firstName"
+          <label
+            htmlFor="lastName"
+            className="form-label col-form-label col-md-3"
+          >
+            Apellido
+          </label>
+          <div className="col-md-8">
+            <input
+              defaultValue={data?.lastName}
+              name="lastName"
               type="text"
               className="input-form"
-              {...register("firstName")} placeholder="Ingresa tu apellido" />
-            </div>
+              {...register("lastName")}
+              placeholder="Ingresa tu apellido"
+            />
+          </div>
         </div>
         <div className="row mb-3">
-          <label htmlFor="age"  className="form-label col-form-label col-md-3">Edad</label>
-            <div className="col-md-8">
-              <input name="age"
+          <label htmlFor="age" className="form-label col-form-label col-md-3">
+            Edad
+          </label>
+          <div className="col-md-8">
+            <input
+              defaultValue={data?.age}
+              name="age"
               type="text"
               className="input-form"
-              {...register("age")} placeholder="Ingresa tu edad" />
-            </div>
+              {...register("age")}
+              placeholder="Ingresa tu edad"
+            />
+          </div>
         </div>
         <div className="row mb-3">
-          <label htmlFor="visits"  className="form-label col-form-label col-md-3">Visitas</label>
-            <div className="col-md-8">
-              <input name="visits"
+          <label
+            defaultValue={data?.visits}
+            htmlFor="visits"
+            className="form-label col-form-label col-md-3"
+          >
+            Visitas
+          </label>
+          <div className="col-md-8">
+            <input
+              name="visits"
               type="text"
               className="input-form"
-              {...register("visits")} placeholder="Ingresa tus Visitas" />
-            </div>
+              {...register("visits")}
+              placeholder="Ingresa tus Visitas"
+            />
+          </div>
         </div>
         <div className="row mb-3">
-          <label htmlFor="status"  className="form-label col-form-label col-md-3">Status</label>
-            <div className="col-md-8">
-              <input name="status"
+          <label
+            htmlFor="status"
+            className="form-label col-form-label col-md-3"
+          >
+            Status
+          </label>
+          <div className="col-md-8">
+            <input
+              name="status"
               type="text"
               className="input-form"
-              {...register("status")} placeholder="Ingresa tu status" />
-            </div>
+              {...register("status")}
+              placeholder="Ingresa tu status"
+            />
+          </div>
         </div>
         <div className="row mb-3">
-          <label htmlFor="progress"  className="form-label col-form-label col-md-3">Profile Progress</label>
-            <div className="col-md-8">
-              <input name="progress"
+          <label
+            htmlFor="progress"
+            className="form-label col-form-label col-md-3"
+          >
+            Profile Progress
+          </label>
+          <div className="col-md-8">
+            <input
+              name="progress"
               type="text"
               className="input-form"
-              {...register("progress")} placeholder="Ingresa tu Profile Progress" />
-            </div>
+              {...register("progress")}
+              placeholder="Ingresa tu Profile Progress"
+            />
+          </div>
         </div>
         {/* <div >
           <div>
