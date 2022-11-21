@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AppSettings } from "./../config/app-settings";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 // ES6 Modules or TypeScript
 
 import {
@@ -12,14 +12,13 @@ import {
   handleSetAppContentClass,
 } from "../utils/startApplication";
 
-import axios from 'axios'
+import axios from "axios";
 
 export default function LoginV3() {
   const { appState, setAppState } = useContext(AppSettings);
   const history = useHistory();
   const { register, handleSubmit } = useForm();
   const token = localStorage.getItem("token");
-
 
   useEffect(() => {
     if (token) {
@@ -32,60 +31,57 @@ export default function LoginV3() {
       handleSetAppHeaderNone(true, appState, setAppState);
       handleSetAppContentClass("p-0", appState, setAppState);
     }
-  }, []);
+  });
 
- 
   const onSubmit = (event) => {
-    console.log( process.env.API_BACK_URL);
+    console.log(process.env.API_BACK_URL);
     console.log(event);
 
-    const post = { username: event.username, password: event.password }
+    const post = { username: event.username, password: event.password };
     console.log(post);
 
-    axios.post(process.env.REACT_APP_API_BACK_URL+'/api/auth/signin',  { 
-      "username": event.username,
-      "password": event.password
-     })
-    .then(function (response) {
-      console.log(response);
-      console.log(response.data.accessToken);
-      localStorage.setItem("token", response.data.accessToken);
-      localStorage.setItem("user-data", JSON.stringify(response.data));
-      if (token) {
+    axios
+      .post(process.env.REACT_APP_API_BACK_URL + "/api/auth/signin", {
+        username: event.username,
+        password: event.password,
+      })
+      .then(function (response) {
+        console.log(response);
+        console.log(response.data.accessToken);
+        localStorage.setItem("token", response.data.accessToken);
         localStorage.setItem("user-data", JSON.stringify(response.data));
-        history.push("/dashboard");
-        handleSetAppSidebarNone(false, appState, setAppState);
-        handleSetAppHeaderNone(false, appState, setAppState);
-        handleSetAppContentClass("", appState, setAppState);
-      } else {
-        handleSetAppSidebarNone(true, appState, setAppState);
-        handleSetAppHeaderNone(true, appState, setAppState);
-        handleSetAppContentClass("p-0", appState, setAppState);
-      }
-    })
-    .catch(function (error) {
-     
-      switch (error.response.data.message) {
-        case "User Not found.":
-          Swal.fire({
-            title: 'Usuario no encontrado.',
-            confirmButtonColor: '#00acac',
-          },);
-          break;
-        case "Invalid Password!":
-          Swal.fire({
-            title: 'Contrasena invalida',
-            confirmButtonColor: '#00acac',
-          },);
-          break;  
-        default:
-          break;
-      }
-      console.log(error);
-    });
-
+        if (token) {
+          localStorage.setItem("user-data", JSON.stringify(response.data));
+          history.push("/dashboard");
+          handleSetAppSidebarNone(false, appState, setAppState);
+          handleSetAppHeaderNone(false, appState, setAppState);
+          handleSetAppContentClass("", appState, setAppState);
+        } else {
+          handleSetAppSidebarNone(true, appState, setAppState);
+          handleSetAppHeaderNone(true, appState, setAppState);
+          handleSetAppContentClass("p-0", appState, setAppState);
+        }
+      })
+      .catch(function (error) {
+        switch (error.response.data.message) {
+          case "User Not found.":
+            Swal.fire({
+              title: "Usuario no encontrado.",
+              confirmButtonColor: "#00acac",
+            });
+            break;
+          case "Invalid Password!":
+            Swal.fire({
+              title: "Contrasena invalida",
+              confirmButtonColor: "#00acac",
+            });
+            break;
+          default:
+            break;
+        }
+        console.log(error);
+      });
   };
-  
 
   return (
     <div className="login login-with-news-feed">
@@ -129,7 +125,7 @@ export default function LoginV3() {
                 placeholder="Email Address"
                 id="emailAddress"
                 name="username"
-                {...register("username")} 
+                {...register("username")}
               />
               <label
                 htmlFor="emailAddress"
@@ -190,7 +186,5 @@ export default function LoginV3() {
     </div>
   );
 }
-
-
 
 //background-color: var(--bs-btn-bg);

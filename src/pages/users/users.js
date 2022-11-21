@@ -3,71 +3,68 @@ import ModalComponent from "../../components/modal/modal";
 import Table from "../table/Table";
 
 export default function Users() {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: "Name",
-        columns: [
-          {
-            Header: "First Name",
-            accessor: "firstName",
-            sortable: true,
+  const columns = React.useMemo(() => [
+    {
+      Header: "Name",
+      columns: [
+        {
+          Header: "First Name",
+          accessor: "firstName",
+          sortable: true,
+        },
+        {
+          Header: "Last Name",
+          accessor: "lastName",
+          sortable: true,
+        },
+      ],
+    },
+    {
+      Header: "Info",
+      columns: [
+        {
+          Header: "Age",
+          accessor: "age",
+          sortable: true,
+        },
+        {
+          Header: "Visits",
+          accessor: "visits",
+          sortable: true,
+        },
+        {
+          Header: "Status",
+          accessor: "status",
+          sortable: true,
+        },
+        {
+          Header: "Profile Progress",
+          accessor: "progress",
+          sortable: true,
+        },
+        {
+          Header: "Action",
+          id: "action",
+          accessor: (originalRow, rowIndex) => {
+            return (
+              <div>
+                <i
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleEdit({ originalRow, rowIndex })}
+                  className="fas fa-pencil-alt fa-fw"
+                ></i>
+                <i
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleDelete(rowIndex)}
+                  className="fas fa-lg fa-fw me-10px fa-trash-can"
+                ></i>
+              </div>
+            );
           },
-          {
-            Header: "Last Name",
-            accessor: "lastName",
-            sortable: true,
-          },
-        ],
-      },
-      {
-        Header: "Info",
-        columns: [
-          {
-            Header: "Age",
-            accessor: "age",
-            sortable: true,
-          },
-          {
-            Header: "Visits",
-            accessor: "visits",
-            sortable: true,
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-            sortable: true,
-          },
-          {
-            Header: "Profile Progress",
-            accessor: "progress",
-            sortable: true,
-          },
-          {
-            Header: "Action",
-            id: "action",
-            accessor: (originalRow, rowIndex) => {
-              return (
-                <div>
-                  <i
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleEdit({ originalRow, rowIndex })}
-                    className="fas fa-pencil-alt fa-fw"
-                  ></i>
-                  <i
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleDelete(rowIndex)}
-                    className="fas fa-lg fa-fw me-10px fa-trash-can"
-                  ></i>
-                </div>
-              );
-            },
-          },
-        ],
-      },
-    ],
-    []
-  );
+        },
+      ],
+    },
+  ]);
   const [modalAddUser, setModalAddUser] = useState(false);
   const [modalEditUser, setModalEditUser] = useState(false);
   const [userEdit, setUserEdit] = useState();

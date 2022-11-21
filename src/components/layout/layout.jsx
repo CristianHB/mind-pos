@@ -17,7 +17,7 @@ export default function Layout(props) {
     } else {
       history.push("/dashboard");
     }
-  }, []);
+  });
 
   return token ? <>{children}</> : <Login />;
 }

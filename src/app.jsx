@@ -32,7 +32,7 @@ export default function App() {
     }
     window.addEventListener("scroll", handleScroll(appState, setAppState));
     return () => window.removeEventListener("scroll", this.handleScroll);
-  }, []);
+  });
 
   // const componentWillUnmount = () => {
   //   window.removeEventListener("scroll", this.handleScroll);
