@@ -12,19 +12,14 @@ export default function ModalComponent({
   ambientEdit,
   setDataAmbient,
 }) {
-   
   console.log(isOpen);
 
-  const [isOpens, setState] = useState(isOpen);
-
   return (
-    <> 
+    <>
       <Modal
-     
         isOpen={isOpen}
         size="md"
         toggle={() => toggle((prevState) => !prevState)}
-       
       >
         <ModalBody style={{ padding: "20px", textAlign: "center" }}>
           <button
@@ -39,7 +34,6 @@ export default function ModalComponent({
         </ModalBody>
       </Modal>
       <Modal
-        
         isOpen={isOpen}
         size="md"
         toggle={() => toggle((prevState) => !prevState)}
@@ -56,6 +50,6 @@ export default function ModalComponent({
           />
         </ModalBody>
       </Modal>
-    </> 
+    </>
   );
 }

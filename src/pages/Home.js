@@ -1,11 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Panel, PanelHeader, PanelBody } from "./../components/panel/panel.jsx";
-import { Link } from "react-router-dom";
 import { Line } from "react-chartjs-2";
 import { AppSettings } from "../config/app-settings.js";
 
 export default function Home() {
-  const { appState, setAppState } = useContext(AppSettings);
+  const { appState } = useContext(AppSettings);
   const lineChartData = {
     labels: [
       "JAN",

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import ModalComponent from "../../components/modal/modal";
 import Table from "../table/Table";
 
@@ -12,7 +12,7 @@ export default function Ambient() {
             Header: "Ambient",
             accessor: "descripcion",
             sortable: true,
-          }, 
+          },
           {
             Header: "Estado",
             id: "estate",
@@ -22,8 +22,9 @@ export default function Ambient() {
                   <button
                     style={{ cursor: "pointer" }}
                     onClick={() => handleEdit({ originalRow, rowIndex })}
-                  
-                  >Activo</button>
+                  >
+                    Activo
+                  </button>
                 </div>
               );
             },
@@ -65,9 +66,8 @@ export default function Ambient() {
       resolucion: "53543456",
       propina: 34,
       tipoambiente: "single",
-    }
+    },
   ]);
-
 
   const handleEdit = ({ originalRow, rowIndex }) => {
     setAmbientEdit({ originalRow, rowIndex });
@@ -86,7 +86,7 @@ export default function Ambient() {
         <li className="breadcrumb-item active">Data Tables</li>
       </ol> */}
       <h1 className="page-header">Ambientes </h1>
-      <p >Este modulo permite crear los diferentes Ambientes. </p>
+      <p>Este modulo permite crear los diferentes Ambientes. </p>
 
       <Table
         columns={columns}

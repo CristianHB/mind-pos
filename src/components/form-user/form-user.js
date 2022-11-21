@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function FormUser({ userEdit, setDataUsers, toggle }) {
@@ -10,7 +10,7 @@ export default function FormUser({ userEdit, setDataUsers, toggle }) {
     if (data) {
       setDataUsers((prevState) =>
         prevState.map((item, index) => {
-          if (index == rowIndex) {
+          if (index === rowIndex) {
             return (prevState[index] = userInfo);
           } else {
             return item;

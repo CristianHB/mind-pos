@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./app.jsx";
-import { BrowserRouter } from "react-router-dom";
 import { AppStateContextProvider } from "./config/app-settings.js";
 
 // css

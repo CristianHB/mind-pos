@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from "react";
-import { AppSettings } from "./../../config/app-settings.js";
+import React, { useEffect } from "react";
+// import { AppSettings } from "./../../config/app-settings.js";
 import Login from "../../pages/login-v3";
 import { useHistory } from "react-router-dom";
 

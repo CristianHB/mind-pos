@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Dropdown,
   DropdownToggle,
@@ -9,7 +9,7 @@ import { AppSettings } from "../../../config/app-settings";
 import { useHistory } from "react-router-dom";
 
 export default function DropdownProfile() {
-  const { appState, setAppState } = useContext(AppSettings);
+  const { setAppState } = useContext(AppSettings);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   // constructor(props) {
   // 	super(props);
@@ -19,20 +19,18 @@ export default function DropdownProfile() {
   // 		dropdownOpen: false
   // 	};
   // }
-  const contextType = useContext(AppSettings);
   const history = useHistory();
   const toggle = () => {
     setDropdownOpen((prevState) => !prevState);
   };
 
-
   const [nameUser, setItems] = useState([]);
 
   useEffect(() => {
-    const nameUser = JSON.parse(localStorage.getItem('user-data'));
+    const nameUser = JSON.parse(localStorage.getItem("user-data"));
     if (nameUser) {
-     setItems(nameUser);
-     console.log(nameUser.username);
+      setItems(nameUser);
+      console.log(nameUser.username);
     }
   }, []);
 

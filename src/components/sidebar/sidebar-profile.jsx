@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AppSettings } from "./../../config/app-settings.js";
 
 export default function SidebarProfile(props) {
-  const { appState, setAppState } = useContext(AppSettings);
+  const { appState } = useContext(AppSettings);
   const [state, setstate] = useState({
     profileActive: 0,
   });
