@@ -31,7 +31,7 @@ export default function LoginV3() {
       handleSetAppHeaderNone(true, appState, setAppState);
       handleSetAppContentClass("p-0", appState, setAppState);
     }
-  });
+  }, []);
 
   const onSubmit = (event) => {
     console.log(process.env.API_BACK_URL);

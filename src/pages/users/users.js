@@ -66,7 +66,7 @@ export default function Users() {
         ],
       },
     ],
-    [handleDelete]
+    []
   );
   const [modalAddUser, setModalAddUser] = useState(false);
   const [modalEditUser, setModalEditUser] = useState(false);
@@ -116,7 +116,6 @@ export default function Users() {
     },
     [dataUsers]
   );
-
   const handleEdit = ({ originalRow, rowIndex }) => {
     setUserEdit({ originalRow, rowIndex });
     setModalEditUser(true);

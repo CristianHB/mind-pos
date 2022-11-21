@@ -30,9 +30,14 @@ export default function App() {
     if (appState.appDarkMode) {
       handleSetAppDarkMode(true, appState, setAppState);
     }
-    window.addEventListener("scroll", handleScroll(appState, setAppState));
-    return () => window.removeEventListener("scroll", this.handleScroll);
-  });
+    window.addEventListener("scroll", () => {
+      handleScroll(appState, setAppState);
+    });
+    return () =>
+      window.removeEventListener("scroll", () => {
+        handleScroll(appState, setAppState);
+      });
+  }, []);
 
   // const componentWillUnmount = () => {
   //   window.removeEventListener("scroll", this.handleScroll);
