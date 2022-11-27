@@ -7,28 +7,17 @@ export default function Ambient() {
   const columns = React.useMemo(
     () => [
       {
-        Header: "Ambiente",
+        Header: "Ambientes",
         columns: [
           {
-            Header: "Ambient",
+            Header: "Ambiente",
             accessor: "descripcion",
             sortable: true,
           },
           {
             Header: "Estado",
-            id: "estate",
-            accessor: (originalRow, rowIndex) => {
-              return (
-                <div>
-                  <button
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleEdit({ originalRow, rowIndex })}
-                  >
-                    Activo
-                  </button>
-                </div>
-              );
-            },
+            accessor: "estate",
+            sortable: true,
           },
           {
             Header: "Action",
@@ -56,6 +45,7 @@ export default function Ambient() {
   const [dataAmbient, setDataAmbient] = useState([
     {
       descripcion: "RESTAURANTE/BAR",
+      estate:"Activo",
       bodega: "FD444",
       resolucion: "32342422",
       propina: 74,
@@ -63,6 +53,7 @@ export default function Ambient() {
     },
     {
       descripcion: "ROPA Y ACCESORIOS",
+      estate:"Activo",
       bodega: "XX455",
       resolucion: "53543456",
       propina: 34,

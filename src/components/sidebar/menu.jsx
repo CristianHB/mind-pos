@@ -5,8 +5,9 @@ const Menu = [
     title: "Dashboard",
   },
   { path: "/users", icon: "fa fa-circle-user", title: "Users" },
-  { path: "/ambient", icon: "fa fa-circle-user", title: "Ambient" },
-  { path: "/sector", icon: "fa fa-circle-user", title: "Sector" },
+  { path: "/ambient", icon: "fa fa-line-chart", title: "Ambient" },
+  { path: "/sector", icon: "fa fa-map-signs", title: "Sector" },
+  { path: "/invoiceResolution", icon: "fa fa-star", title: "Invoice Resolution" },
 ];
 
 export default Menu;

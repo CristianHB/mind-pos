@@ -51,12 +51,15 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
             Bodega
           </label>
           <div className="col-md-8">
-            <select
+            <select 
               className="form-select"
               name="cellar"
               {...register("cellar")}
               placeholder="Ingresa la bodega"
-            />
+            >
+              <option value="1">Bodega Principal</option>
+              <option value="2">Bodega restaurant</option>
+            </select>  
           </div>
         </div>
         <div className="row mb-3">
