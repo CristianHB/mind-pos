@@ -35,6 +35,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
           </label>
           <div className="col-md-8">
             <input
+              defaultValue={data?.description}
               name="description"
               type="text"
               className="form-control form-control-lg"
@@ -52,6 +53,7 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
           </label>
           <div className="col-md-8">
             <select 
+              defaultValue={data?.bodega}
               className="form-select"
               name="cellar"
               {...register("cellar")}
@@ -105,6 +107,25 @@ export default function FormAmbient({ ambientEdit, setDataAmbient, toggle }) {
               {...register("ambientType")}
               placeholder="Ingresa tu tipo de ambiente"
             />
+          </div>
+        </div>
+        <div className="row mb-3">
+          <label
+            htmlFor="estate"
+            className="form-label col-form-label col-md-3"
+          >
+            Estado
+          </label>
+          <div className="col-md-8">
+            <select
+              className="form-select"
+              name="estate"
+              {...register("estate")}
+              placeholder="Ingresa tu tipo de ambiente"
+            >
+              <option value="1">Activo</option>
+              <option value="2">Inactivo</option>
+            </select>  
           </div>
         </div>
         <div style={{ marginTop: "15px" }}>

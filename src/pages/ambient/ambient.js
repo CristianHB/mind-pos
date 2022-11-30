@@ -11,7 +11,7 @@ export default function Ambient() {
         columns: [
           {
             Header: "Ambiente",
-            accessor: "descripcion",
+            accessor: "description",
             sortable: true,
           },
           {
@@ -44,17 +44,17 @@ export default function Ambient() {
   const [ambientEdit, setAmbientEdit] = useState();
   const [dataAmbient, setDataAmbient] = useState([
     {
-      descripcion: "RESTAURANTE/BAR",
+      description: "RESTAURANTE/BAR",
       estate:"Activo",
-      bodega: "FD444",
+      bodega: "Bodega restaurant",
       resolucion: "32342422",
       propina: 74,
       tipoambiente: "single",
     },
     {
-      descripcion: "ROPA Y ACCESORIOS",
+      description: "ROPA Y ACCESORIOS",
       estate:"Activo",
-      bodega: "XX455",
+      bodega: "Bodega restaurant",
       resolucion: "53543456",
       propina: 34,
       tipoambiente: "single",
