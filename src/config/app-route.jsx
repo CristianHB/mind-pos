@@ -5,7 +5,8 @@ import Users from "../pages/users/users.js";
 import Ambient from "../pages/ambient/ambient.js";
 import Layout from "../components/layout/layout.jsx";
 import Sector from "../pages/sectors/sectors.js";
-import InvoiceResolution from "../pages/invoice-resolution/invoiceResolution.js"
+import InvoiceResolution from "../pages/invoice-resolution/invoiceResolution.js";
+import Commands from "../pages/commands/commands.js";
 
 const routes = [
   {
@@ -49,6 +50,12 @@ const routes = [
     exact: true,
     title: "Invoice Resolution",
     component: () => <InvoiceResolution />,
+  },
+  {
+    path: "/commands/:id",
+    exact: true,
+    title: "Invoice Resolution",
+    component: () => <Commands />,
   },
 ];
 

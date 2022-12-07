@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AppSettings } from "./config/app-settings.js";
 
@@ -18,9 +18,11 @@ import {
   handleSetAppDarkMode,
   handleScroll,
 } from "./utils/startApplication.jsx";
+import Commands from "./pages/commands/commands.js";
 
 export default function App() {
   const { appState, setAppState } = useContext(AppSettings);
+  const [pathname, setPathname] = useState(window.location.pathname);
 
   useEffect(() => {
     // console.log("appstater", appState, "setappstater", setAppState);
@@ -45,44 +47,52 @@ export default function App() {
 
   return (
     <Router>
-      <Layout>
-        <div
-          className={
-            "app " +
-            (appState.appGradientEnabled ? "app-gradient-enabled " : "") +
-            (appState.appHeaderNone ? "app-without-header " : "") +
-            (appState.appHeaderFixed && !appState.appHeaderNone
-              ? "app-header-fixed "
-              : "") +
-            (appState.appSidebarFixed ? "app-sidebar-fixed " : "") +
-            (appState.appSidebarNone ? "app-without-sidebar " : "") +
-            (appState.appSidebarEnd ? "app-with-end-sidebar " : "") +
-            (appState.appSidebarWide ? "app-with-wide-sidebar " : "") +
-            (appState.appSidebarLight ? "app-with-light-sidebar " : "") +
-            (appState.appSidebarMinify ? "app-sidebar-minified " : "") +
-            (appState.appSidebarMobileToggled
-              ? "app-sidebar-mobile-toggled "
-              : "") +
-            (appState.appTopMenu ? "app-with-top-menu " : "") +
-            (appState.appContentFullHeight ? "app-content-full-height " : "") +
-            (appState.appSidebarTwo ? "app-with-two-sidebar " : "") +
-            (appState.appSidebarEndToggled ? "app-sidebar-end-toggled " : "") +
-            (appState.appSidebarEndMobileToggled
-              ? "app-sidebar-end-mobile-toggled "
-              : "") +
-            (appState.hasScroll ? "has-scroll " : "")
-          }
-        >
-          {!appState.appHeaderNone && <Header />}
+      {pathname.substring(1, pathname.indexOf("/", 1)) == "commands" ? (
+        <Commands />
+      ) : (
+        <Layout>
+          <div
+            className={
+              "app " +
+              (appState.appGradientEnabled ? "app-gradient-enabled " : "") +
+              (appState.appHeaderNone ? "app-without-header " : "") +
+              (appState.appHeaderFixed && !appState.appHeaderNone
+                ? "app-header-fixed "
+                : "") +
+              (appState.appSidebarFixed ? "app-sidebar-fixed " : "") +
+              (appState.appSidebarNone ? "app-without-sidebar " : "") +
+              (appState.appSidebarEnd ? "app-with-end-sidebar " : "") +
+              (appState.appSidebarWide ? "app-with-wide-sidebar " : "") +
+              (appState.appSidebarLight ? "app-with-light-sidebar " : "") +
+              (appState.appSidebarMinify ? "app-sidebar-minified " : "") +
+              (appState.appSidebarMobileToggled
+                ? "app-sidebar-mobile-toggled "
+                : "") +
+              (appState.appTopMenu ? "app-with-top-menu " : "") +
+              (appState.appContentFullHeight
+                ? "app-content-full-height "
+                : "") +
+              (appState.appSidebarTwo ? "app-with-two-sidebar " : "") +
+              (appState.appSidebarEndToggled
+                ? "app-sidebar-end-toggled "
+                : "") +
+              (appState.appSidebarEndMobileToggled
+                ? "app-sidebar-end-mobile-toggled "
+                : "") +
+              (appState.hasScroll ? "has-scroll " : "")
+            }
+          >
+            {!appState.appHeaderNone && <Header />}
 
-          {!appState.appSidebarNone && <Sidebar />}
-          {appState.appSidebarTwo && <SidebarRight />}
-          {appState.appTopMenu && <TopMenu />}
-          {!appState.appContentNone && <Content />}
-          <FloatSubMenu />
-          <ThemePanel />
-        </div>
-      </Layout>
+            {!appState.appSidebarNone && <Sidebar />}
+            {appState.appSidebarTwo && <SidebarRight />}
+            {appState.appTopMenu && <TopMenu />}
+            {!appState.appContentNone && <Content />}
+            <FloatSubMenu />
+            <ThemePanel />
+          </div>
+        </Layout>
+      )}
     </Router>
   );
 }
