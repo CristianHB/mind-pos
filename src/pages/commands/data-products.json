@@ -1,0 +1,130 @@
+[
+   {
+     "id": "1",
+     "nombre": "Pollo a la plancha",
+     "imagen": "https://easyrecetas.com/wp-content/uploads/2020/03/Receta-de-Pollo-a-la-Plancha.jpg",
+     "descripcion": "Cool T-shirt, Cotton Fabric. Wash in normal water with mild detergent.",
+     "precio": "8.50",
+     "categoria": "La carta"
+   },
+   {
+     "id": "2",
+     "nombre": "Pizza hawaiana",
+     "imagen": "https://queapetito.com/wp-content/uploads/2019/12/pizza-hawaiana-1-600x469.jpg",
+     "descripcion": "Cool Happy Birthday printed T-shirt.Crafted from light, breathable cotton.",
+     "precio": "7.40",
+     "categoria": "pizzas"
+   },
+   {
+     "id": "3",
+     "nombre": "Hamburgesa de pollo",
+     "imagen": "https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2019/01/como-hacer-hamburguesa-de-pollo-crispy.jpg",
+     "descripcion": "Yellow t-shirt makes the perfect addition to your casual wardrobe.",
+     "precio": "9.50",
+     "categoria": "Hamburgesas"
+   },
+   {
+     "id": "4",
+     "nombre": "Pizza napolitana",
+     "imagen": "https://images.getrecipekit.com/20220308203252-pizzas.png?width=650&quality=90&",
+     "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+     "precio": "10.80",
+     "categoria": "pizzas"
+   },
+   {
+     "id": "5",
+     "nombre": "Coktel del vodka",
+     "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGQGdDemFlfHkv6I9iXhZEY_zDXvilRqK5iQ&usqp=CAU",
+     "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+     "precio": "10.80",
+     "categoria": "Bebidas"
+   },
+   {
+     "id": "6",
+     "nombre": "Cerveza Corona",
+     "imagen": "https://revistaelconocedor.com/wp-content/uploads/2021/05/Corona-2.jpg",
+     "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+     "precio": "10.80",
+     "categoria": "Bebidas"
+   },
+   {
+     "id": "7",
+     "nombre": "Helado de oreo",
+     "imagen": "https://cdn.colombia.com/gastronomia/2018/11/06/helado-de-galleta-oreo-3114.jpg",
+     "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+     "precio": "10.80",
+     "categoria": "Helados"
+   },
+   {
+     "id": "8",
+     "nombre": "Galletas de cafe",
+     "imagen": "https://okdiario.com/img/2020/07/18/galletas-caseras-integrales-de-cafe-y-chocolate.jpg",
+     "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+     "precio": "10.80",
+     "categoria": "Snacks"
+   },
+   {
+      "id": "9",
+      "nombre": "Ron caldas",
+      "imagen": "https://www.tintiando.com/wp-content/uploads/2020/10/ILC-RON-VIEJO-ESENCIAL-1-1024x1024.png",
+      "descripcion": "Cool T-shirt, Cotton Fabric. Wash in normal water with mild detergent.",
+      "precio": "8.50",
+      "categoria": "Bebidas"
+    },
+    {
+      "id": "10",
+      "nombre": "Picada full",
+      "imagen": "https://www.asadosmanizales.com/wp-content/uploads/2020/04/Picada-de-Brasas-de-Mil%C3%A1n.png",
+      "descripcion": "Cool Happy Birthday printed T-shirt.Crafted from light, breathable cotton.",
+      "precio": "7.40",
+      "categoria": "La carta"
+    },
+    {
+      "id": "11",
+      "nombre": "Hamburgesa de la casa",
+      "imagen": "https://www.recetasparavivirmejor.com/wp-content/uploads/2021/03/recetas_para_vivir_mejor_carne_de_hamburguesa_saludables_2021-1-1024x570.jpg",
+      "descripcion": "Yellow t-shirt makes the perfect addition to your casual wardrobe.",
+      "precio": "9.50",
+      "categoria": "Hamburgesas"
+    },
+    {
+      "id": "12",
+      "nombre": "Pizza mexicana",
+      "imagen": "https://www.gastrolabweb.com/u/fotografias/m/2021/2/9/f1280x720-8328_140003_5050.jpg",
+      "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+      "precio": "10.80",
+      "categoria": "pizzas"
+    },
+    {
+      "id": "13",
+      "nombre": "Helado fresa",
+      "imagen": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOM0NLphSxCeg1bUS24zEKdnLwgg3a2Ky36g&usqp=CAU",
+      "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+      "precio": "10.80",
+      "categoria": "bocadillos"
+    },
+    {
+      "id": "14",
+      "nombre": "Pastas 5 quesos",
+      "imagen": "https://okdiario.com/img/recetas/2017/08/04/espaguetis-queso.jpg",
+      "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+      "precio": "10.80",
+      "categoria": "La carta"
+    },
+    {
+      "id": "15",
+      "nombre": "Helado vainilla",
+      "imagen": "https://us.123rf.com/450wm/sabrinacercelovic/sabrinacercelovic1508/sabrinacercelovic150800007/43941000-cerca-de-un-plato-blanco-con-helado-de-vainilla-fresas-y-ar%C3%A1ndanos-y-una-servilleta-a-cuadros-blanca.jpg",
+      "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+      "precio": "10.80",
+      "categoria": "Helados"
+    },
+    {
+      "id": "16",
+      "nombre": "Postre de caramelo",
+      "imagen": "https://cdn7.kiwilimon.com/recetaimagen/872/640x426/4335.jpg.webp",
+      "descripcion": "Stylish and trendy, this crew neck short sleeved t-shirt is made with 100% pure cotton.",
+      "precio": "10.80",
+      "categoria": "Snacks"
+    }
+ ]

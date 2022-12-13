@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { AppSettings } from "./../../config/app-settings.js";
 import { Modal, ModalBody } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import dataCategories from "./data-categories.json"; 
+import dataProducts from "./data-products.json"; 
+
 
 import {
   handleSetAppSidebarNone,
@@ -10,27 +13,39 @@ import {
   handleSetAppContentFullHeight,
   handleSetAppContentClass,
 } from "../../utils/startApplication.jsx";
+import { element } from "prop-types";
 
 export default function Commands() {
   const { appState } = useContext(AppSettings);
   const [modalPosItem, setModalPosItem] = useState(false);
   const [posMobileSidebarToggled, setPosMobileSidebarToggled] = useState(false);
+  const [product, setProduct] = useState('')
 
   const togglePosMobileSidebar = () => {
     setPosMobileSidebarToggled((prevState) => !prevState);
   };
 
-  const toggleModal = (name) => {
-    switch (name) {
-      case "modalPosItem":
+  const toggleModal = (data) => {
+    console.log(data);
+        setProduct(data)
         setModalPosItem((prevState) => !prevState);
-        break;
-      default:
-        break;
-    }
   };
 
+  const listCategories = dataCategories.categories;
+  const listProducts = dataProducts;
+
   const handleChange = () => {};
+
+  function selectCategories(cat){
+
+    console.log(cat);
+
+    // this.listProducts.forEach((element) => {
+    //   if (element.categoria == categoria) {
+    //     console.log(element);
+    //   }
+    // });
+  }
 
   //   const componentDidMount = () => {
   //     appState.handleSetAppSidebarNone(true);
@@ -59,9 +74,9 @@ export default function Commands() {
           <div className="logo">
             <Link to="/">
               <div className="logo-img">
-                <img alt="" src="../assets/img/pos/logo.svg" />
+                <img alt="" src="https://cdn-icons-png.flaticon.com/512/562/562678.png"/>
               </div>
-              <div className="logo-text">Pine & Dine</div>
+              <div className="logo-text">Categorias</div>
             </Link>
           </div>
           <div className="nav-container">
@@ -70,73 +85,28 @@ export default function Commands() {
               options={{ suppressScrollX: true }}
             >
               <ul className="nav nav-tabs">
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
-                    className="nav-link active"
-                    data-filter="all"
-                  >
-                    <i className="fa fa-fw fa-utensils mr-1 ml-n2"></i> All
-                    Dishes
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
+             
+                {listCategories.map(d => (
+                <li className="nav-item" key={d.id}>
+                  <div
+                    onClick={selectCategories(d.nombre)}
                     className="nav-link"
-                    data-filter="meat"
+                    data-filter={d.nombre}
                   >
-                    <i className="fa fa-fw fa-drumstick-bite mr-1 ml-n2"></i>{" "}
-                    Meat
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
-                    className="nav-link"
-                    data-filter="burger"
-                  >
-                    <i className="fa fa-fw fa-hamburger mr-1 ml-n2"></i> Burger
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
-                    className="nav-link"
-                    data-filter="pizza"
-                  >
-                    <i className="fa fa-fw fa-pizza-slice mr-1 ml-n2"></i> Pizza
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
-                    className="nav-link"
-                    data-filter="drinks"
-                  >
-                    <i className="fa fa-fw fa-cocktail mr-1 ml-n2"></i> Drinks
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
-                    className="nav-link"
-                    data-filter="desserts"
-                  >
-                    <i className="fa fa-fw fa-ice-cream mr-1 ml-n2"></i>{" "}
-                    Desserts
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/pos/customer-order"
-                    className="nav-link"
-                    data-filter="snacks"
-                  >
-                    <i className="fa fa-fw fa-cookie-bite mr-1 ml-n2"></i>{" "}
-                    Snacks
-                  </Link>
-                </li>
+                    <i className={d.icon}></i> {d.nombre}
+                  </div>
+                </li>))} 
+                {/* 
+                  <li className="nav-item">
+                    <Link
+                      to="/pos/customer-order"
+                      className="nav-link active"
+                      data-filter="all"
+                    >
+                      <i className="fa fa-fw fa-utensils mr-1 ml-n2"></i> All
+                      Dishes
+                    </Link>
+                  </li>*/}
               </ul>
             </PerfectScrollbar>
           </div>
@@ -148,7 +118,27 @@ export default function Commands() {
             options={{ suppressScrollX: true }}
           >
             <div className="product-row">
-              <div className="product-container" data-type="meat">
+            {listProducts.map(d => (  
+            <div className="product-container" data-type="meat">
+                <Link
+                  to="/pos/customer-order"
+                  className="product"
+                  onClick={() => toggleModal(d)}
+                >
+                  <div
+                    className="img"
+                    style={{
+                      backgroundImage: `url(${(d.imagen)})`,
+                    }}
+                  ></div>
+                  <div className="text">
+                    <div className="title">{d.nombre}</div>
+                    <div className="desc">{d.descripcion}</div>
+                    <div className="price">${d.precio}</div>
+                  </div>
+                </Link>
+              </div>))} 
+              {/* <div className="product-container" data-type="meat">
                 <Link
                   to="/pos/customer-order"
                   className="product"
@@ -166,335 +156,7 @@ export default function Commands() {
                     <div className="price">$10.99</div>
                   </div>
                 </Link>
-              </div>
-              <div className="product-container" data-type="meat">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-2.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Grill Pork Chop&reg;</div>
-                    <div className="desc">pork, egg, mushroom, salad</div>
-                    <div className="price">$12.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="meat">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-3.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Capellini Tomato Sauce&reg;</div>
-                    <div className="desc">spaghetti, tomato, mushroom </div>
-                    <div className="price">$11.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="meat">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-4.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Vegan Salad Bowl&reg;</div>
-                    <div className="desc">apple, carrot, tomato </div>
-                    <div className="price">$6.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="pizza">
-                <div className="product not-available">
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-5.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Hawaiian Pizza&reg;</div>
-                    <div className="desc">pizza, crab meat, pineapple </div>
-                    <div className="price">$20.99</div>
-                  </div>
-                  <div className="not-available-text">
-                    <div>Not Available</div>
-                  </div>
-                </div>
-              </div>
-              <div className="product-container" data-type="burger">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-17.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Perfect Burger</div>
-                    <div className="desc">
-                      Dill pickle, cheddar cheese, tomato, red onion, ground
-                      chuck beef
-                    </div>
-                    <div className="price">$8.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="drinks">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-6.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Avocado Shake</div>
-                    <div className="desc">avocado, milk, vanilla</div>
-                    <div className="price">$3.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="drinks">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-7.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Coffee Latte</div>
-                    <div className="desc">espresso, milk</div>
-                    <div className="price">$2.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="drinks">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-8.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Vita C Detox Juice</div>
-                    <div className="desc">
-                      apricot, apple, carrot and ginger juice
-                    </div>
-                    <div className="price">$2.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="snacks">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-9.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Pancake</div>
-                    <div className="desc">
-                      Non dairy, egg, baking soda, sugar, all purpose flour
-                    </div>
-                    <div className="price">$5.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="snacks">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-10.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Mushroom soup</div>
-                    <div className="desc">
-                      Evaporated milk, marsala wine, beef cubes, chicken broth,
-                      butter
-                    </div>
-                    <div className="price">$3.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="snacks">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-11.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Baked chicken wing</div>
-                    <div className="desc">
-                      Chicken wings, a1 steak sauce, honey, cayenne pepper
-                    </div>
-                    <div className="price">$6.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="meat">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-12.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Veggie Spaghetti</div>
-                    <div className="desc">
-                      Yellow squash, pasta, roasted red peppers, zucchini
-                    </div>
-                    <div className="price">$12.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="desserts">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-13.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Vanilla Ice Cream</div>
-                    <div className="desc">
-                      Heavy whipping cream, white sugar, vanilla extract
-                    </div>
-                    <div className="price">$3.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="desserts">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-15.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Perfect Yeast Doughnuts</div>
-                    <div className="desc">
-                      Chocolate hazelnut spread, bread flour, doughnuts, quick
-                      rise yeast, butter
-                    </div>
-                    <div className="price">$2.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="desserts">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-14.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Macarons</div>
-                    <div className="desc">
-                      Almond flour, egg whites, heavy cream, food coloring,
-                      powdered sugar
-                    </div>
-                    <div className="price">$4.99</div>
-                  </div>
-                </Link>
-              </div>
-              <div className="product-container" data-type="desserts">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-16.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Perfect Vanilla Cupcake</div>
-                    <div className="desc">
-                      Baking powder, all purpose flour, plain kefir, vanilla
-                      extract
-                    </div>
-                    <div className="price">$2.99</div>
-                  </div>
-                </Link>
-              </div>
+              </div>*/}
             </div>
           </PerfectScrollbar>
         </div>
@@ -882,14 +544,14 @@ export default function Commands() {
               <div
                 className="img"
                 style={{
-                  backgroundImage: "url(../assets/img/pos/product-1.jpg)",
+                  backgroundImage: `url(${(product.imagen)})`,
                 }}
               ></div>
             </div>
             <div className="pos-product-info">
-              <div className="title">Grill Chicken Chop</div>
-              <div className="desc">chicken, egg, mushroom, salad</div>
-              <div className="price">$10.99</div>
+              <div className="title">{product.nombre}</div>
+              <div className="desc">{product.descripcion}</div>
+              <div className="price">${product.precio}</div>
               <hr />
               <div className="option-row">
                 <div className="qty">
