@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { AppSettings } from "./../../config/app-settings.js";
 import { Modal, ModalBody } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import dataCategories from "./data-categories.json"; 
-import dataProducts from "./data-products.json"; 
-
+import dataCategories from "./data-categories.json";
+import dataProducts from "./data-products.json";
 
 import {
   handleSetAppSidebarNone,
@@ -19,32 +18,25 @@ export default function Commands() {
   const { appState } = useContext(AppSettings);
   const [modalPosItem, setModalPosItem] = useState(false);
   const [posMobileSidebarToggled, setPosMobileSidebarToggled] = useState(false);
-  const [product, setProduct] = useState('')
+  const [product, setProduct] = useState(dataProducts);
 
   const togglePosMobileSidebar = () => {
     setPosMobileSidebarToggled((prevState) => !prevState);
   };
 
   const toggleModal = (data) => {
-    console.log(data);
-        setProduct(data)
-        setModalPosItem((prevState) => !prevState);
+    setProduct(data);
+    setModalPosItem((prevState) => !prevState);
   };
-
-  const listCategories = dataCategories.categories;
-  const listProducts = dataProducts;
 
   const handleChange = () => {};
 
-  function selectCategories(cat){
-
-    console.log(cat);
-
-    // this.listProducts.forEach((element) => {
-    //   if (element.categoria == categoria) {
-    //     console.log(element);
-    //   }
-    // });
+  function selectCategories(cat) {
+    if (cat.id == "1") {
+      setProduct(dataProducts);
+    } else {
+      setProduct(dataProducts.filter((el) => el.idCategoria == cat.id));
+    }
   }
 
   //   const componentDidMount = () => {
@@ -74,7 +66,10 @@ export default function Commands() {
           <div className="logo">
             <Link to="/">
               <div className="logo-img">
-                <img alt="" src="https://cdn-icons-png.flaticon.com/512/562/562678.png"/>
+                <img
+                  alt=""
+                  src="https://cdn-icons-png.flaticon.com/512/562/562678.png"
+                />
               </div>
               <div className="logo-text">Categorias</div>
             </Link>
@@ -85,17 +80,18 @@ export default function Commands() {
               options={{ suppressScrollX: true }}
             >
               <ul className="nav nav-tabs">
-             
-                {listCategories.map(d => (
-                <li className="nav-item" key={d.id}>
-                  <div
-                    onClick={selectCategories(d.nombre)}
-                    className="nav-link"
-                    data-filter={d.nombre}
-                  >
-                    <i className={d.icon}></i> {d.nombre}
-                  </div>
-                </li>))} 
+                {dataCategories.map((category, index) => (
+                  <li className="nav-item" key={category.id + "-" + index}>
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() => selectCategories(category)}
+                      className="nav-link"
+                      data-filter={category.nombre}
+                    >
+                      <i className={category.icon}></i> {category.nombre}
+                    </div>
+                  </li>
+                ))}
                 {/* 
                   <li className="nav-item">
                     <Link
@@ -118,26 +114,31 @@ export default function Commands() {
             options={{ suppressScrollX: true }}
           >
             <div className="product-row">
-            {listProducts.map(d => (  
-            <div className="product-container" data-type="meat">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal(d)}
+              {product.map((productMap, index) => (
+                <div
+                  key={productMap.id + "-" + index}
+                  className="product-container"
+                  data-type="meat"
                 >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: `url(${(d.imagen)})`,
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">{d.nombre}</div>
-                    <div className="desc">{d.descripcion}</div>
-                    <div className="price">${d.precio}</div>
-                  </div>
-                </Link>
-              </div>))} 
+                  <Link
+                    to="/pos/customer-order"
+                    className="product"
+                    onClick={() => toggleModal(productMap)}
+                  >
+                    <div
+                      className="img"
+                      style={{
+                        backgroundImage: `url(${productMap.imagen})`,
+                      }}
+                    ></div>
+                    <div className="text">
+                      <div className="title">{productMap.nombre}</div>
+                      <div className="desc">{productMap.descripcion}</div>
+                      <div className="price">${productMap.precio}</div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
               {/* <div className="product-container" data-type="meat">
                 <Link
                   to="/pos/customer-order"
@@ -506,7 +507,6 @@ export default function Commands() {
           </div>
         </div>
       </div>
-
       <Link
         to="/pos/customer-order"
         className="pos-mobile-sidebar-toggler"
@@ -526,7 +526,6 @@ export default function Commands() {
         </svg>
         <span className="badge">5</span>
       </Link>
-
       <Modal
         isOpen={modalPosItem}
         size="lg"
@@ -544,7 +543,7 @@ export default function Commands() {
               <div
                 className="img"
                 style={{
-                  backgroundImage: `url(${(product.imagen)})`,
+                  backgroundImage: `url(${product.imagen})`,
                 }}
               ></div>
             </div>

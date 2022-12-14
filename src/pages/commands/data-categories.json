@@ -1,39 +1,37 @@
-{ 
-  "categories":  [
-    {
-      "id": "1",
-      "nombre": "Todos",
-      "icon": "fa fa-fw fa-utensils mr-1 ml-n2"
-    },
-    {
-      "id": "2",
-      "nombre": "La Carta",
-      "icon": "fa fa-fw fa-drumstick-bite mr-1 ml-n2"
-    },
-    {
-      "id": "3",
-      "nombre": "Hamburgesas",
-      "icon": "fa fa-fw fa-hamburger mr-1 ml-n2"
-    },
-    {
-      "id": "4",
-      "nombre": "Pizza",
-      "icon": "fa fa-fw fa-pizza-slice mr-1 ml-n2"
-    },
-    {
-      "id": "5",
-      "nombre": "Bebidas",
-      "icon": "fa fa-fw fa-cocktail mr-1 ml-n2"
-    },
-    {
-      "id": "6",
-      "nombre": "Helados",
-      "icon": "fa fa-fw fa-ice-cream mr-1 ml-n2"
-    },
-    {
-      "id": "7",
-      "nombre": "Snacks",
-      "icon": "fa fa-fw fa-cookie-bite mr-1 ml-n2"
-    }
-  ]
-}  
+[
+  {
+    "id": "1",
+    "nombre": "Todos",
+    "icon": "fa fa-fw fa-utensils mr-1 ml-n2"
+  },
+  {
+    "id": "2",
+    "nombre": "La Carta",
+    "icon": "fa fa-fw fa-drumstick-bite mr-1 ml-n2"
+  },
+  {
+    "id": "3",
+    "nombre": "Hamburgesas",
+    "icon": "fa fa-fw fa-hamburger mr-1 ml-n2"
+  },
+  {
+    "id": "4",
+    "nombre": "Pizza",
+    "icon": "fa fa-fw fa-pizza-slice mr-1 ml-n2"
+  },
+  {
+    "id": "5",
+    "nombre": "Bebidas",
+    "icon": "fa fa-fw fa-cocktail mr-1 ml-n2"
+  },
+  {
+    "id": "6",
+    "nombre": "Helados",
+    "icon": "fa fa-fw fa-ice-cream mr-1 ml-n2"
+  },
+  {
+    "id": "7",
+    "nombre": "Snacks",
+    "icon": "fa fa-fw fa-cookie-bite mr-1 ml-n2"
+  }
+]
