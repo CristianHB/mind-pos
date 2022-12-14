@@ -18,7 +18,8 @@ export default function Commands() {
   const { appState } = useContext(AppSettings);
   const [modalPosItem, setModalPosItem] = useState(false);
   const [posMobileSidebarToggled, setPosMobileSidebarToggled] = useState(false);
-  const [product, setProduct] = useState(dataProducts);
+  const [products, setProducts] = useState(dataProducts);
+  const [product, setProduct] = useState({});
 
   const togglePosMobileSidebar = () => {
     setPosMobileSidebarToggled((prevState) => !prevState);
@@ -33,9 +34,9 @@ export default function Commands() {
 
   function selectCategories(cat) {
     if (cat.id == "1") {
-      setProduct(dataProducts);
+      setProducts(dataProducts);
     } else {
-      setProduct(dataProducts.filter((el) => el.idCategoria == cat.id));
+      setProducts(dataProducts.filter((el) => el.idCategoria == cat.id));
     }
   }
 
@@ -114,7 +115,7 @@ export default function Commands() {
             options={{ suppressScrollX: true }}
           >
             <div className="product-row">
-              {product.map((productMap, index) => (
+              {products.map((productMap, index) => (
                 <div
                   key={productMap.id + "-" + index}
                   className="product-container"
