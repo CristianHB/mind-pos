@@ -12,7 +12,7 @@ import {
   handleSetAppContentFullHeight,
   handleSetAppContentClass,
 } from "../../utils/startApplication.jsx";
-import { element } from "prop-types";
+import { element, number } from "prop-types";
 
 export default function Commands() {
   const { appState } = useContext(AppSettings);
@@ -20,6 +20,11 @@ export default function Commands() {
   const [posMobileSidebarToggled, setPosMobileSidebarToggled] = useState(false);
   const [products, setProducts] = useState(dataProducts);
   const [product, setProduct] = useState({});
+  const [listProduct, listSetProduct] = useState({})
+  const [cantProduct, cantsetProduct] = useState(1);
+  const arrProduct = [];
+
+  
 
   const togglePosMobileSidebar = () => {
     setPosMobileSidebarToggled((prevState) => !prevState);
@@ -39,6 +44,13 @@ export default function Commands() {
       setProducts(dataProducts.filter((el) => el.idCategoria == cat.id));
     }
   }
+
+  useEffect(() => {
+    arrProduct.push(listProduct);
+    arrProduct.push(cantProduct)
+    console.log(arrProduct);
+  })
+  
 
   //   const componentDidMount = () => {
   //     appState.handleSetAppSidebarNone(true);
@@ -121,8 +133,8 @@ export default function Commands() {
                   className="product-container"
                   data-type="meat"
                 >
-                  <Link
-                    to="/pos/customer-order"
+                  <div
+                   
                     className="product"
                     onClick={() => toggleModal(productMap)}
                   >
@@ -137,7 +149,7 @@ export default function Commands() {
                       <div className="desc">{productMap.descripcion}</div>
                       <div className="price">${productMap.precio}</div>
                     </div>
-                  </Link>
+                  </div>
                 </div>
               ))}
               {/* <div className="product-container" data-type="meat">
@@ -213,19 +225,21 @@ export default function Commands() {
           >
             <div className="tab-pane fade h-100 show active" id="newOrderTab">
               <div className="pos-table">
-                <div className="row pos-table-row">
+              {arrProduct.map((product, index) => (
+                <div  key={product[0].id + "-" + index} className="row pos-table-row">
                   <div className="col-9">
+                    
                     <div className="pos-product-thumb">
                       <div
                         className="img"
                         style={{
-                          backgroundImage: "url(/assets/img/pos/product-2.jpg)",
+                          backgroundImage: `url(${product[0].imagen})`,
                         }}
                       ></div>
                       <div className="info">
-                        <div className="title">Grill Pork Chop</div>
-                        <div className="single-price">$12.99</div>
-                        <div className="desc">- size: large</div>
+                        <div className="title">{product[0].nombre}</div>
+                        <div className="single-price">{product[0].precio}</div>
+                        <div className="desc">{product[0].descripcion}</div>
                         <div className="input-group qty">
                           <div className="input-group-append">
                             <Link
@@ -253,169 +267,10 @@ export default function Commands() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-3 total-price">$12.99</div>
+                  <div className="col-3 total-price">${product[0].precio}</div>
                 </div>
-                <div className="row pos-table-row">
-                  <div className="col-9">
-                    <div className="pos-product-thumb">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: "url(/assets/img/pos/product-8.jpg)",
-                        }}
-                      ></div>
-                      <div className="info">
-                        <div className="title">Orange Juice</div>
-                        <div className="single-price">$5.00</div>
-                        <div className="desc">
-                          - size: large
-                          <br />- less ice
-                        </div>
-                        <div className="input-group qty">
-                          <div className="input-group-append">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-minus"></i>
-                            </Link>
-                          </div>
-                          <input
-                            type="text"
-                            onChange={() => handleChange()}
-                            className="form-control"
-                          />
-                          <div className="input-group-prepend">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-plus"></i>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-3 total-price">$10.00</div>
-                  <div className="pos-remove-confirmation">
-                    <svg
-                      width="2em"
-                      height="2em"
-                      viewBox="0 0 16 16"
-                      className="mr-2"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                      <path
-                        fillRule="evenodd"
-                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                      />
-                    </svg>
-                    Remove this item?
-                    <Link
-                      to="/pos/customer-order"
-                      className="btn btn-white ml-auto mr-2"
-                    >
-                      No
-                    </Link>
-                    <Link to="/pos/customer-order" className="btn btn-danger">
-                      Yes
-                    </Link>
-                  </div>
-                </div>
-                <div className="row pos-table-row">
-                  <div className="col-9">
-                    <div className="pos-product-thumb">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: "url(/assets/img/pos/product-1.jpg)",
-                        }}
-                      ></div>
-                      <div className="info">
-                        <div className="title">Grill chicken chop</div>
-                        <div className="single-price">$10.99</div>
-                        <div className="desc">
-                          - size: large
-                          <br />- spicy: medium
-                        </div>
-                        <div className="input-group qty">
-                          <div className="input-group-append">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-minus"></i>
-                            </Link>
-                          </div>
-                          <input
-                            type="text"
-                            onChange={() => handleChange()}
-                            className="form-control"
-                            value="01"
-                          />
-                          <div className="input-group-prepend">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-plus"></i>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-3 total-price">$10.99</div>
-                </div>
-                <div className="row pos-table-row">
-                  <div className="col-9">
-                    <div className="pos-product-thumb">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: "url(/assets/img/pos/product-5.jpg)",
-                        }}
-                      ></div>
-                      <div className="info">
-                        <div className="title">Hawaiian Pizza</div>
-                        <div className="single-price">$15.00</div>
-                        <div className="desc">
-                          - size: large
-                          <br />- more onion
-                        </div>
-                        <div className="input-group qty">
-                          <div className="input-group-append">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-minus"></i>
-                            </Link>
-                          </div>
-                          <input
-                            type="text"
-                            onChange={() => handleChange()}
-                            className="form-control"
-                            value="02"
-                          />
-                          <div className="input-group-prepend">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-plus"></i>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-3 total-price">$15.00</div>
-                </div>
-                <div className="row pos-table-row">
+                ))}
+                {/* <div className="row pos-table-row">
                   <div className="col-9">
                     <div className="pos-product-thumb">
                       <div
@@ -454,7 +309,7 @@ export default function Commands() {
                     </div>
                   </div>
                   <div className="col-3 total-price">$3.99</div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="tab-pane fade h-100" id="orderHistoryTab">
@@ -551,23 +406,23 @@ export default function Commands() {
             <div className="pos-product-info">
               <div className="title">{product.nombre}</div>
               <div className="desc">{product.descripcion}</div>
-              <div className="price">${product.precio}</div>
+              <div className="price">${cantProduct * product.precio}</div>
               <hr />
               <div className="option-row">
                 <div className="qty">
                   <div className="input-group">
-                    <Link to="/pos/customer-order" className="btn btn-default">
+                    <button onClick={() => cantsetProduct(cantProduct - 1)}  className="btn btn-default">
                       <i className="fa fa-minus"></i>
-                    </Link>
+                    </button>
                     <input
                       type="text"
                       className="form-control border-0 text-center"
                       name=""
-                      value="1"
+                      value={cantProduct}
                     />
-                    <Link to="/pos/customer-order" className="btn btn-default">
+                    <button onClick={() => cantsetProduct(cantProduct + 1)} className="btn btn-default">
                       <i className="fa fa-plus"></i>
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -678,9 +533,9 @@ export default function Commands() {
                 >
                   Cancel
                 </Link>
-                <Link to="/pos/customer-order" className="btn btn-success">
+                <button onClick={() => [listSetProduct( product), toggleModal("modalPosItem")]}  className="btn btn-success">
                   Add to cart <i className="fa fa-plus fa-fw ml-2"></i>
-                </Link>
+                </button>
               </div>
             </div>
           </div>
