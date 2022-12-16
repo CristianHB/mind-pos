@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
 import { AppSettings } from "./../../config/app-settings.js";
 import { Modal, ModalBody } from "reactstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import dataCategories from "./data-categories.json";
 import dataProducts from "./data-products.json";
+import uuid from "react-uuid";
 
 import {
   handleSetAppSidebarNone,
@@ -12,30 +12,63 @@ import {
   handleSetAppContentFullHeight,
   handleSetAppContentClass,
 } from "../../utils/startApplication.jsx";
-import { element, number } from "prop-types";
 
 export default function Commands() {
   const { appState } = useContext(AppSettings);
-  const [modalPosItem, setModalPosItem] = useState(false);
   const [posMobileSidebarToggled, setPosMobileSidebarToggled] = useState(false);
+
+  const [modalPosItem, setModalPosItem] = useState(false);
   const [products, setProducts] = useState(dataProducts);
   const [product, setProduct] = useState({});
-  const [listProduct, listSetProduct] = useState({})
-  const [cantProduct, cantsetProduct] = useState(1);
-  const arrProduct = [];
-
-  
-
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const [productCount, setProductCount] = useState(1);
   const togglePosMobileSidebar = () => {
     setPosMobileSidebarToggled((prevState) => !prevState);
   };
 
-  const toggleModal = (data) => {
+  const deleteProduct = (idProduct) => {
+    setShoppingCart(
+      shoppingCart.map((el) => {
+        if (el.idReference == idProduct && el.cantidad > 0) {
+          el.cantidad--;
+          return el;
+        } else {
+          return el;
+        }
+      })
+    );
+  };
+  const addProduct = (idProduct) => {
+    setShoppingCart(
+      shoppingCart.map((el) => {
+        if (el.idReference == idProduct) {
+          el.cantidad++;
+          return el;
+        } else {
+          return el;
+        }
+      })
+    );
+  };
+
+  const openProductDetails = (data) => {
     setProduct(data);
+    toggleModal();
+  };
+
+  const toggleModal = () => {
     setModalPosItem((prevState) => !prevState);
   };
 
   const handleChange = () => {};
+
+  const handleAddToCart = (product, totalCount) => {
+    let itemProduct = { ...product, cantidad: totalCount, idReference: uuid() };
+    setShoppingCart((prevState) => [...prevState, itemProduct]);
+    toggleModal();
+    setProductCount(1);
+    console.log(shoppingCart);
+  };
 
   function selectCategories(cat) {
     if (cat.id == "1") {
@@ -44,13 +77,6 @@ export default function Commands() {
       setProducts(dataProducts.filter((el) => el.idCategoria == cat.id));
     }
   }
-
-  useEffect(() => {
-    arrProduct.push(listProduct);
-    arrProduct.push(cantProduct)
-    console.log(arrProduct);
-  })
-  
 
   //   const componentDidMount = () => {
   //     appState.handleSetAppSidebarNone(true);
@@ -77,7 +103,7 @@ export default function Commands() {
       >
         <div className="pos-menu">
           <div className="logo">
-            <Link to="/">
+            <button style={{ border: "none" }}>
               <div className="logo-img">
                 <img
                   alt=""
@@ -85,7 +111,7 @@ export default function Commands() {
                 />
               </div>
               <div className="logo-text">Categorias</div>
-            </Link>
+            </button>
           </div>
           <div className="nav-container">
             <PerfectScrollbar
@@ -105,17 +131,6 @@ export default function Commands() {
                     </div>
                   </li>
                 ))}
-                {/* 
-                  <li className="nav-item">
-                    <Link
-                      to="/pos/customer-order"
-                      className="nav-link active"
-                      data-filter="all"
-                    >
-                      <i className="fa fa-fw fa-utensils mr-1 ml-n2"></i> All
-                      Dishes
-                    </Link>
-                  </li>*/}
               </ul>
             </PerfectScrollbar>
           </div>
@@ -134,9 +149,9 @@ export default function Commands() {
                   data-type="meat"
                 >
                   <div
-                   
                     className="product"
-                    onClick={() => toggleModal(productMap)}
+                    onClick={() => openProductDetails(productMap)}
+                    style={{ cursor: "pointer" }}
                   >
                     <div
                       className="img"
@@ -152,25 +167,6 @@ export default function Commands() {
                   </div>
                 </div>
               ))}
-              {/* <div className="product-container" data-type="meat">
-                <Link
-                  to="/pos/customer-order"
-                  className="product"
-                  onClick={() => toggleModal("modalPosItem")}
-                >
-                  <div
-                    className="img"
-                    style={{
-                      backgroundImage: "url(/assets/img/pos/product-1.jpg)",
-                    }}
-                  ></div>
-                  <div className="text">
-                    <div className="title">Grill Chicken Chop&reg;</div>
-                    <div className="desc">chicken, egg, mushroom, salad</div>
-                    <div className="price">$10.99</div>
-                  </div>
-                </Link>
-              </div>*/}
             </div>
           </PerfectScrollbar>
         </div>
@@ -207,14 +203,10 @@ export default function Commands() {
           <div className="pos-sidebar-nav">
             <ul className="nav nav-tabs nav-fill">
               <li className="nav-item">
-                <Link to="/pos/customer-order" className="nav-link active">
-                  New Order (5)
-                </Link>
+                <button className="nav-link active">New Order (5)</button>
               </li>
               <li className="nav-item">
-                <Link to="/pos/customer-order" className="nav-link">
-                  Order History (0)
-                </Link>
+                <button className="nav-link">Order History (0)</button>
               </li>
             </ul>
           </div>
@@ -225,50 +217,65 @@ export default function Commands() {
           >
             <div className="tab-pane fade h-100 show active" id="newOrderTab">
               <div className="pos-table">
-              {arrProduct.map((product, index) => (
-                <div  key={product[0].id + "-" + index} className="row pos-table-row">
-                  <div className="col-9">
-                    
-                    <div className="pos-product-thumb">
-                      <div
-                        className="img"
-                        style={{
-                          backgroundImage: `url(${product[0].imagen})`,
-                        }}
-                      ></div>
-                      <div className="info">
-                        <div className="title">{product[0].nombre}</div>
-                        <div className="single-price">{product[0].precio}</div>
-                        <div className="desc">{product[0].descripcion}</div>
-                        <div className="input-group qty">
-                          <div className="input-group-append">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-minus"></i>
-                            </Link>
+                {shoppingCart.map((productCart, index) => (
+                  <div
+                    key={productCart.id + "-" + index}
+                    className="row pos-table-row"
+                  >
+                    <div className="col-9">
+                      <div className="pos-product-thumb">
+                        <div
+                          className="img"
+                          style={{
+                            backgroundImage: `url(${productCart.imagen})`,
+                          }}
+                        ></div>
+                        <div className="info">
+                          <div className="title">{productCart.nombre}</div>
+                          <div className="single-price">
+                            {productCart.precio}
                           </div>
-                          <input
-                            type="text"
-                            onChange={() => handleChange()}
-                            className="form-control"
-                            value="01"
-                          />
-                          <div className="input-group-prepend">
-                            <Link
-                              to="/pos/customer-order"
-                              className="btn btn-default"
-                            >
-                              <i className="fa fa-plus"></i>
-                            </Link>
+                          <div className="desc">{productCart.descripcion}</div>
+                          <div className="input-group qty">
+                            <div className="input-group-append">
+                              <button
+                                onClick={() =>
+                                  deleteProduct(productCart.idReference)
+                                }
+                                className="btn btn-default"
+                              >
+                                <i className="fa fa-minus"></i>
+                              </button>
+                            </div>
+                            <input
+                              type="text"
+                              disabled
+                              onChange={() => handleChange()}
+                              className="form-control"
+                              value={productCart.cantidad}
+                            />
+                            <div className="input-group-prepend">
+                              <button
+                                onClick={() =>
+                                  addProduct(productCart.idReference)
+                                }
+                                className="btn btn-default"
+                              >
+                                <i className="fa fa-plus"></i>
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <div className="col-3 total-price">
+                      $
+                      {parseFloat(
+                        productCart.precio * productCart.cantidad,
+                        2
+                      ).toFixed(2)}
+                    </div>
                   </div>
-                  <div className="col-3 total-price">${product[0].precio}</div>
-                </div>
                 ))}
                 {/* <div className="row pos-table-row">
                   <div className="col-9">
@@ -339,7 +346,15 @@ export default function Commands() {
           <div className="pos-sidebar-footer">
             <div className="subtotal">
               <div className="text">Subtotal</div>
-              <div className="price">$30.98</div>
+              <div className="price">
+                $
+                {shoppingCart
+                  .reduce(
+                    (prev, current) => prev + current.cantidad * current.precio,
+                    0
+                  )
+                  .toFixed(2)}
+              </div>
             </div>
             <div className="taxes">
               <div className="text">Taxes (6%)</div>
@@ -347,24 +362,37 @@ export default function Commands() {
             </div>
             <div className="total">
               <div className="text">Total</div>
-              <div className="price">$33.10</div>
+              <div className="price">
+                $
+                {shoppingCart.reduce(
+                  (prev, current) => prev + current.cantidad * current.precio,
+                  0
+                ) > 0
+                  ? (
+                      shoppingCart.reduce(
+                        (prev, current) =>
+                          prev + current.cantidad * current.precio,
+                        0
+                      ) + 2.12
+                    ).toFixed(2)
+                  : 0}
+              </div>
             </div>
             <div className="btn-row">
-              <Link to="/pos/customer-order" className="btn btn-default">
+              <button to="/pos/customer-order" className="btn btn-default">
                 <i className="fa fa-bell fa-fw fa-lg"></i> Service
-              </Link>
-              <Link to="/pos/customer-order" className="btn btn-default">
+              </button>
+              <button to="/pos/customer-order" className="btn btn-default">
                 <i className="fa fa-file-invoice-dollar fa-fw fa-lg"></i> Bill
-              </Link>
-              <Link to="/pos/customer-order" className="btn btn-success">
+              </button>
+              <button to="/pos/customer-order" className="btn btn-success">
                 <i className="fa fa-check fa-fw fa-lg"></i> Submit Order
-              </Link>
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <Link
-        to="/pos/customer-order"
+      <button
         className="pos-mobile-sidebar-toggler"
         onClick={() => togglePosMobileSidebar()}
       >
@@ -381,19 +409,18 @@ export default function Commands() {
           <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z" />
         </svg>
         <span className="badge">5</span>
-      </Link>
+      </button>
       <Modal
         isOpen={modalPosItem}
         size="lg"
-        toggle={() => toggleModal("modalPosItem")}
+        toggle={() => toggleModal()}
         modalClassName="modal-pos-item"
       >
         <ModalBody className="p-0">
-          <Link
-            to="/pos/customer-order"
-            onClick={() => toggleModal("modalPosItem")}
+          <button
+            onClick={() => setModalPosItem(false)}
             className="btn-close position-absolute top-0 end-0 m-4"
-          ></Link>
+          ></button>
           <div className="pos-product">
             <div className="pos-product-img">
               <div
@@ -406,21 +433,31 @@ export default function Commands() {
             <div className="pos-product-info">
               <div className="title">{product.nombre}</div>
               <div className="desc">{product.descripcion}</div>
-              <div className="price">${cantProduct * product.precio}</div>
+              <div className="price">${product.precio}</div>
               <hr />
               <div className="option-row">
                 <div className="qty">
                   <div className="input-group">
-                    <button onClick={() => cantsetProduct(cantProduct - 1)}  className="btn btn-default">
+                    <button
+                      onClick={() => {
+                        setProductCount((prev) => (prev > 0 ? prev - 1 : prev));
+                      }}
+                      className="btn btn-default"
+                    >
                       <i className="fa fa-minus"></i>
                     </button>
                     <input
                       type="text"
                       className="form-control border-0 text-center"
                       name=""
-                      value={cantProduct}
+                      value={productCount}
                     />
-                    <button onClick={() => cantsetProduct(cantProduct + 1)} className="btn btn-default">
+                    <button
+                      onClick={() => {
+                        setProductCount((prev) => prev + 1);
+                      }}
+                      className="btn btn-default"
+                    >
                       <i className="fa fa-plus"></i>
                     </button>
                   </div>
@@ -526,14 +563,16 @@ export default function Commands() {
                 </div>
               </div>
               <div className="btn-row">
-                <Link
-                  to="/pos/customer-order"
+                <button
                   className="btn btn-default"
-                  onClick={() => toggleModal("modalPosItem")}
+                  onClick={() => setModalPosItem(false)}
                 >
                   Cancel
-                </Link>
-                <button onClick={() => [listSetProduct( product), toggleModal("modalPosItem")]}  className="btn btn-success">
+                </button>
+                <button
+                  onClick={() => handleAddToCart(product, productCount)}
+                  className="btn btn-success"
+                >
                   Add to cart <i className="fa fa-plus fa-fw ml-2"></i>
                 </button>
               </div>
