@@ -70,6 +70,12 @@ export default function Commands() {
     console.log(shoppingCart);
   };
 
+  const deleteAllProduct = (idProductReference) => {
+    setShoppingCart(
+      shoppingCart.filter((el) => el.idReference != idProductReference)
+    );
+  };
+
   function selectCategories(cat) {
     if (cat.id == "1") {
       setProducts(dataProducts);
@@ -269,11 +275,25 @@ export default function Commands() {
                       </div>
                     </div>
                     <div className="col-3 total-price">
-                      $
-                      {parseFloat(
-                        productCart.precio * productCart.cantidad,
-                        2
-                      ).toFixed(2)}
+                      <div>
+                        <div>
+                          $
+                          {parseFloat(
+                            productCart.precio * productCart.cantidad,
+                            2
+                          ).toFixed(2)}
+                        </div>
+                        <div>
+                          <i
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              deleteAllProduct(productCart.idReference)
+                            }
+                            class="fa fa-trash"
+                            aria-hidden="true"
+                          ></i>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
