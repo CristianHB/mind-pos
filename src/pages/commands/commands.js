@@ -209,7 +209,7 @@ export default function Commands() {
           <div className="pos-sidebar-nav">
             <ul className="nav nav-tabs nav-fill">
               <li className="nav-item">
-                <button className="nav-link active">New Order (5)</button>
+                <button className="nav-link active">New Order ({shoppingCart.length})</button>
               </li>
               <li className="nav-item">
                 <button className="nav-link">Order History (0)</button>
@@ -428,7 +428,7 @@ export default function Commands() {
           />
           <path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z" />
         </svg>
-        <span className="badge">5</span>
+        <span className="badge">{shoppingCart.length}</span>
       </button>
       <Modal
         isOpen={modalPosItem}
