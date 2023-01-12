@@ -7,6 +7,7 @@ import Layout from "../components/layout/layout.jsx";
 import Sector from "../pages/sectors/sectors.js";
 import InvoiceResolution from "../pages/invoice-resolution/invoiceResolution.js";
 import Commands from "../pages/commands/commands.js";
+import Warehouse from "../pages/warehouse/warehouse.js";
 
 const routes = [
   {
@@ -50,6 +51,12 @@ const routes = [
     exact: true,
     title: "Invoice Resolution",
     component: () => <InvoiceResolution />,
+  },
+  {
+    path: "/warehouse",
+    exact: true,
+    title: "warehouse",
+    component: () => <Warehouse />,
   },
   {
     path: "/commands/:id",

@@ -8,6 +8,7 @@ const Menu = [
   { path: "/ambient", icon: "fa fa-line-chart", title: "Ambient" },
   { path: "/sector", icon: "fa fa-map-signs", title: "Sector" },
   { path: "/invoiceResolution", icon: "fa fa-star", title: "Invoice Resolution" },
+  { path: "/warehouse", icon: "fa fa-warehouse", title: "warehouse" },
 ];
 
 export default Menu;
