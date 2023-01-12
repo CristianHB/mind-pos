@@ -31,7 +31,7 @@ export default function Warehouse() {
             sortable: true,
           },
           {
-            Header: "Almacen/Bodegas ",
+            Header: "Almacen/Bodegas",
             accessor: a => ( a.tipo_Bodega ? "Bodega": "Almacen" ),
             sortable: true,
           },

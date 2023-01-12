@@ -1,28 +1,62 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const postBodegasUrl = "https://horustech.azurewebsites.net/api/Bodegas";
 
 export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle }) {
   const data = warehouseEdit?.originalRow;
   const rowIndex = warehouseEdit?.rowIndex;
   const { register, handleSubmit } = useForm();
 
+  // const onSubmit = (warehouseInfo) => {
+  //   if (data) {
+  //     setWarehouseEdit((prevState) =>
+  //       prevState.map((item, index) => {
+  //         if (index === rowIndex) {
+  //           return (prevState[index] = warehouseInfo);
+  //         } else {
+  //           return item;
+  //         }
+  //       })
+  //     );
+  //   } else {
+  //      console.log(warehouseInfo);
+  //     setWarehouseEdit((prevState) => [...prevState, warehouseInfo]);
+  //   }
+  //   toggle(false);
+  // };
+
   const onSubmit = (warehouseInfo) => {
-    if (data) {
-      setWarehouseEdit((prevState) =>
-        prevState.map((item, index) => {
-          if (index === rowIndex) {
-            return (prevState[index] = warehouseInfo);
-          } else {
-            return item;
-          }
-        })
-      );
-    } else {
-      // console.log(ambienInfo);
-      setWarehouseEdit((prevState) => [...prevState, warehouseInfo]);
-    }
-    toggle(false);
-  };
+    
+    var today = new Date();
+
+    warehouseInfo.cod_Alma = 0
+    warehouseInfo.cod_Sucu = 57
+    warehouseInfo.fec_Crea = today.toISOString();
+    warehouseInfo.usu_Crea = 122
+    console.log(warehouseInfo);
+
+    axios
+    .post(postBodegasUrl, { warehouseInfo
+    })
+    .then(function (response) {
+      console.log(response);
+      Swal.fire({
+        title: "Datos enviados",
+        confirmButtonColor: "#00acac",
+      });
+    })
+    .catch(function (error) {
+          Swal.fire({
+            title: "Ocurrio un error",
+            confirmButtonColor: "#00acac",
+          });
+    })
+
+  } 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -46,21 +80,21 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
         </div>
         <div className="row mb-3">
           <label
-            htmlFor="cellar"
+            htmlFor="tipo_Bodega"
             className="form-label col-form-label col-md-3"
           >
-            Bodega
+            Almacen/Bodegas
           </label>
           <div className="col-md-8">
             <select 
-              defaultValue={data?.bodega}
+              defaultValue={data?.tipo_Bodega}
               className="form-select"
-              name="cellar"
-              {...register("cellar")}
+              name="tipo_Bodega"
+              {...register("tipo_Bodega")}
               placeholder="Ingresa la bodega"
             >
-              <option value="1">Bodega Principal</option>
-              <option value="2">Bodega restaurant</option>
+              <option value={false}>Almacen</option>
+              <option value={true}>Bodega</option>
             </select>  
           </div>
         </div>
@@ -69,44 +103,36 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
             htmlFor="resolution"
             className="form-label col-form-label col-md-3"
           >
-            Resolucion
+            Porcionamiento
           </label>
           <div className="col-md-8">
-            <select
-              className="form-select"
-              name="resolution"
-              {...register("resolution")}
-              placeholder="Ingresa la resolucion"
-            />
+            <select 
+                defaultValue={data?.fla_Porc}
+                className="form-select"
+                name="fla_Porc"
+                {...register("fla_Porc")}
+                placeholder="Ingresa el tipo de Porcionamiento"
+              >
+                <option value={true}>Si</option>
+                <option value={false}>No</option>
+            </select> 
           </div>
         </div>
         <div className="row mb-3">
           <label htmlFor="tip" className="form-label col-form-label col-md-3">
-            Propina
+          Procesamiento
           </label>
           <div className="col-md-8">
-            <select
-              className="form-select"
-              name="tip"
-              {...register("tip")}
-              placeholder="Ingresa propina"
-            />
-          </div>
-        </div>
-        <div className="row mb-3">
-          <label
-            htmlFor="ambientType"
-            className="form-label col-form-label col-md-3"
-          >
-            Tipo ambiente
-          </label>
-          <div className="col-md-8">
-            <select
-              className="form-select"
-              name="ambientType"
-              {...register("ambientType")}
-              placeholder="Ingresa tu tipo de ambiente"
-            />
+            <select 
+                defaultValue={data?.fla_Proc}
+                className="form-select"
+                name="fla_Proc"
+                {...register("fla_Proc")}
+                placeholder="Ingresa el tipo de Procesamiento"
+              >
+                <option value={true}>Si</option>
+                <option value={false}>No</option>
+            </select> 
           </div>
         </div>
         <div className="row mb-3">
@@ -117,15 +143,16 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
             Estado
           </label>
           <div className="col-md-8">
-            <select
-              className="form-select"
-              name="estate"
-              {...register("estate")}
-              placeholder="Ingresa tu tipo de ambiente"
-            >
-              <option value="1">Activo</option>
-              <option value="2">Inactivo</option>
-            </select>  
+            <select 
+                defaultValue={data?.est_Alma}
+                className="form-select"
+                name="est_Alma"
+                {...register("est_Alma")}
+                placeholder="Ingresa el estado"
+              >
+                <option value={true}>Activo</option>
+                <option value={false}>Inactivo</option>
+            </select>   
           </div>
         </div>
         <div style={{ marginTop: "15px" }}>
