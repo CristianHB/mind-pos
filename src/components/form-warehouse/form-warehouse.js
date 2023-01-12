@@ -6,7 +6,11 @@ import Swal from "sweetalert2";
 
 const postBodegasUrl = "https://horustech.azurewebsites.net/api/Bodegas";
 
-export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle }) {
+export default function FormAmbient({
+  warehouseEdit,
+  setWarehouseEdit,
+  toggle,
+}) {
   const data = warehouseEdit?.originalRow;
   const rowIndex = warehouseEdit?.rowIndex;
   const { register, handleSubmit } = useForm();
@@ -30,33 +34,35 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
   // };
 
   const onSubmit = (warehouseInfo) => {
-    
     var today = new Date();
 
-    warehouseInfo.cod_Alma = 0
-    warehouseInfo.cod_Sucu = 57
+    warehouseInfo.cod_Alma = 0;
+    warehouseInfo.cod_Sucu = 57;
     warehouseInfo.fec_Crea = today.toISOString();
-    warehouseInfo.usu_Crea = 122
+    warehouseInfo.usu_Crea = 122;
+    warehouseInfo.est_Alma = JSON.parse(warehouseInfo.est_Alma);
+    warehouseInfo.fla_Porc = JSON.parse(warehouseInfo.fla_Porc);
+    warehouseInfo.fla_Proc = JSON.parse(warehouseInfo.fla_Proc);
+    warehouseInfo.tipo_Bodega = JSON.parse(warehouseInfo.tipo_Bodega);
+
     console.log(warehouseInfo);
 
     axios
-    .post(postBodegasUrl, { warehouseInfo
-    })
-    .then(function (response) {
-      console.log(response);
-      Swal.fire({
-        title: "Datos enviados",
-        confirmButtonColor: "#00acac",
+      .post(postBodegasUrl, { warehouseInfo })
+      .then(function (response) {
+        console.log(response);
+        Swal.fire({
+          title: "Datos enviados",
+          confirmButtonColor: "#00acac",
+        });
+      })
+      .catch(function (error) {
+        Swal.fire({
+          title: "Ocurrio un error",
+          confirmButtonColor: "#00acac",
+        });
       });
-    })
-    .catch(function (error) {
-          Swal.fire({
-            title: "Ocurrio un error",
-            confirmButtonColor: "#00acac",
-          });
-    })
-
-  } 
+  };
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,7 +92,7 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
             Almacen/Bodegas
           </label>
           <div className="col-md-8">
-            <select 
+            <select
               defaultValue={data?.tipo_Bodega}
               className="form-select"
               name="tipo_Bodega"
@@ -95,7 +101,7 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
             >
               <option value={false}>Almacen</option>
               <option value={true}>Bodega</option>
-            </select>  
+            </select>
           </div>
         </div>
         <div className="row mb-3">
@@ -106,33 +112,33 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
             Porcionamiento
           </label>
           <div className="col-md-8">
-            <select 
-                defaultValue={data?.fla_Porc}
-                className="form-select"
-                name="fla_Porc"
-                {...register("fla_Porc")}
-                placeholder="Ingresa el tipo de Porcionamiento"
-              >
-                <option value={true}>Si</option>
-                <option value={false}>No</option>
-            </select> 
+            <select
+              defaultValue={data?.fla_Porc}
+              className="form-select"
+              name="fla_Porc"
+              {...register("fla_Porc")}
+              placeholder="Ingresa el tipo de Porcionamiento"
+            >
+              <option value={true}>Si</option>
+              <option value={false}>No</option>
+            </select>
           </div>
         </div>
         <div className="row mb-3">
           <label htmlFor="tip" className="form-label col-form-label col-md-3">
-          Procesamiento
+            Procesamiento
           </label>
           <div className="col-md-8">
-            <select 
-                defaultValue={data?.fla_Proc}
-                className="form-select"
-                name="fla_Proc"
-                {...register("fla_Proc")}
-                placeholder="Ingresa el tipo de Procesamiento"
-              >
-                <option value={true}>Si</option>
-                <option value={false}>No</option>
-            </select> 
+            <select
+              defaultValue={data?.fla_Proc}
+              className="form-select"
+              name="fla_Proc"
+              {...register("fla_Proc")}
+              placeholder="Ingresa el tipo de Procesamiento"
+            >
+              <option value={true}>Si</option>
+              <option value={false}>No</option>
+            </select>
           </div>
         </div>
         <div className="row mb-3">
@@ -143,16 +149,16 @@ export default function FormAmbient({ warehouseEdit, setWarehouseEdit, toggle })
             Estado
           </label>
           <div className="col-md-8">
-            <select 
-                defaultValue={data?.est_Alma}
-                className="form-select"
-                name="est_Alma"
-                {...register("est_Alma")}
-                placeholder="Ingresa el estado"
-              >
-                <option value={true}>Activo</option>
-                <option value={false}>Inactivo</option>
-            </select>   
+            <select
+              defaultValue={data?.est_Alma}
+              className="form-select"
+              name="est_Alma"
+              {...register("est_Alma")}
+              placeholder="Ingresa el estado"
+            >
+              <option value={true}>Activo</option>
+              <option value={false}>Inactivo</option>
+            </select>
           </div>
         </div>
         <div style={{ marginTop: "15px" }}>

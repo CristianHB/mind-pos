@@ -6,12 +6,12 @@ import dataCategories from "./data-categories.json";
 import dataProducts from "./data-products.json";
 import uuid from "react-uuid";
 
-import {
-  handleSetAppSidebarNone,
-  handleSetAppHeaderNone,
-  handleSetAppContentFullHeight,
-  handleSetAppContentClass,
-} from "../../utils/startApplication.jsx";
+// import {
+//   handleSetAppSidebarNone,
+//   handleSetAppHeaderNone,
+//   handleSetAppContentFullHeight,
+//   handleSetAppContentClass,
+// } from "../../utils/startApplication.jsx";
 
 export default function Commands() {
   const { appState } = useContext(AppSettings);
@@ -209,7 +209,9 @@ export default function Commands() {
           <div className="pos-sidebar-nav">
             <ul className="nav nav-tabs nav-fill">
               <li className="nav-item">
-                <button className="nav-link active">New Order ({shoppingCart.length})</button>
+                <button className="nav-link active">
+                  New Order ({shoppingCart.length})
+                </button>
               </li>
               <li className="nav-item">
                 <button className="nav-link">Order History (0)</button>
