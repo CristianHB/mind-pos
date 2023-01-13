@@ -15,7 +15,7 @@ export default function Layout(props) {
     if (!token) {
       history.push("/login");
     } else {
-      history.push("/dashboard");
+      history.push(window.location.pathname);
     }
   }, []);
 
